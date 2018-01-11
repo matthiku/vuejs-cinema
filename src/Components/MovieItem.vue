@@ -8,7 +8,11 @@
     <div class="movie-col-right">
 
       <div class="movie-title">
-        <h2>{{ movie.Title }}</h2>
+
+        <router-link :to="{name: 'movie', params: {movieId: movie.imdbID}}">
+          <h2>{{ movie.Title }}</h2>
+        </router-link>
+
         <span class="movie-rating">{{ movie.Rated }}</span>
       </div>
 
