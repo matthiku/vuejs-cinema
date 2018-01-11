@@ -10,7 +10,6 @@
           :key="index"
           :filter="time"
           type="time"
-          v-on:check-filter="checkFilter"
         >
       </check-filter>
     </div>
@@ -22,7 +21,6 @@
           :key="index"
           :filter="genre"
           type="genre"
-          v-on:check-filter="checkFilter"
         >
       </check-filter>
     </div>
@@ -40,11 +38,6 @@ export default {
     return {
       times,
       genres,
-    }
-  },
-  methods: {
-    checkFilter (payload) {
-      this.$emit('check-filter', payload)
     }
   },
   components: {

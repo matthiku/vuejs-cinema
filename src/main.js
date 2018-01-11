@@ -13,23 +13,22 @@ moment.tz.setDefault("UTZ")
 // add moment to the Vue prototype, so that we can use it in all components!
 Object.defineProperty(Vue.prototype, '$moment', { get() { return this.$root.moment }})
 
+// import the event listeners
+import { checkFilter } from './util/bus';
+
+// add a global event bus to the VUE project
+const bus = new Vue()
+Object.defineProperty(Vue.prototype, '$bus', { get () { return this.$root.bus }})
+
 new Vue({
   el: '#app',
   data: {
     genre: [],
     time: [],
     movies: [],
+    bus,
     moment,
     day: moment()
-  },
-  methods: {
-    checkFilter (filter) {
-      if (filter.state) {
-        this[filter.type].push(filter.name)
-      } else {
-        this[filter.type].splice(this[filter.type].indexOf(filter.name), 1)
-      }
-    }
   },
   components: {
     MovieList,
@@ -40,5 +39,7 @@ new Vue({
       .then(resp => {
         this.movies = resp.data
       })
+    // register global bus events
+    this.$bus.$on('check-filter', checkFilter.bind(this))
   }
 })

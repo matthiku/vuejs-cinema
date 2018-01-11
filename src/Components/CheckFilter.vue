@@ -16,7 +16,8 @@ export default {
   methods: {
     checkFilter () {
       this.checked = !this.checked
-      this.$emit('check-filter', {
+      // use the global bus to emit this event
+      this.$bus.$emit('check-filter', {
         type: this.type,
         name: this.filter,
         state: this.checked
