@@ -21,6 +21,9 @@ import { checkFilter, setDay } from './util/bus';
 const bus = new Vue()
 Object.defineProperty(Vue.prototype, '$bus', { get () { return this.$root.bus }})
 
+import Tooltip from './util/tooltip'
+Vue.use(Tooltip)
+
 new Vue({
   el: '#app',
   router,

@@ -11,7 +11,12 @@
         >
 
       <div class="movie-sessions">
-        <div class="session-time-wrapper" v-for="(session, index) in filteredSessions(movie)" :key="index">
+        <div
+            class="session-time-wrapper tooltip-wrapper"
+            v-for="(session, index) in filteredSessions(movie)"
+            :key="index"
+            v-tooltip="{ seats: session.seats }"
+          >
           <div class="session-time">{{ formatSessionTime(session.time) }}</div>
         </div>
       </div>
