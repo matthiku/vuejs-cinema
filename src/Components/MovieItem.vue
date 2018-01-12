@@ -2,15 +2,16 @@
   <div class="movie">
 
     <div class="movie-col-left">
-      <img :src="movie.Poster" alt="poster">
+      <router-link :to="{name: 'movie', params: {movieId: movie.imdbID}}">
+        <img :src="movie.Poster" alt="poster">
+      </router-link>
     </div>
 
     <div class="movie-col-right">
 
       <div class="movie-title">
 
-        <router-link
-            :to="{name: 'movie', params: {movieId: movie.imdbID}}">
+        <router-link :to="{name: 'movie', params: {movieId: movie.imdbID}}">
           <h2>{{ movie.Title }}</h2>
         </router-link>
 

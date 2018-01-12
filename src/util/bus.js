@@ -7,5 +7,8 @@ function checkFilter (filter) {
     this[filter.type].splice(this[filter.type].indexOf(filter.name), 1)
   }
 }
+function setDay (day) {
+  this.day = day
+}
 
-export { checkFilter }
+export { checkFilter, setDay }

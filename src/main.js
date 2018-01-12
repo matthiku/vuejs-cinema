@@ -17,6 +17,7 @@ Object.defineProperty(Vue.prototype, '$moment', { get() { return this.$root.mome
 
 // import the event listeners
 import { checkFilter } from './util/bus';
+import { setDay } from './util/bus';
 // add a global event bus to the VUE project
 const bus = new Vue()
 Object.defineProperty(Vue.prototype, '$bus', { get () { return this.$root.bus }})
@@ -39,5 +40,6 @@ new Vue({
       })
     // register global bus events
     this.$bus.$on('check-filter', checkFilter.bind(this))
+    this.$bus.$on('set-day', setDay.bind(this))
   }
 })
