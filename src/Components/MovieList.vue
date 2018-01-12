@@ -9,6 +9,13 @@
         :day="day"
         :time="time"
         >
+
+      <div class="movie-sessions">
+        <div class="session-time-wrapper" v-for="(session, index) in filteredSessions(movie)" :key="index">
+          <div class="session-time">{{ formatSessionTime(session.time) }}</div>
+        </div>
+      </div>
+
     </movie-item>
 
     <div class="no-results" v-if="!movies.length">Loading ...</div>
@@ -27,6 +34,9 @@ export default {
     MovieItem
   },
   methods: {
+    filteredSessions (movie) {
+      return movie.sessions.filter(session => this.sessionPassesTimeFilter(session))
+    },
     moviePassesGenreFilter (movie) {
       // show all if the filter is empty
       if (!this.genre.length) { return true }
@@ -51,8 +61,24 @@ export default {
         return sessionTime.hour() >= 18
       }
       return sessionTime.hour() < 18
+    },
+    formatSessionTime (raw) {
+      return this.$moment(raw).format('H:mm')
+    },
+    sessionPassesTimeFilter (session) {
+      // check if session time is on the given day
+      let sessionTime = this.$moment(session.time)
+      if (!sessionTime.isSame(this.day, 'day')) { return false }
+      // show all if the filter is empty or if both are checked
+      if (this.time.length === 0 || this.time.length === 2) { return true }
+      // check if session time is before or after the given filter time
+      if (this.time[0] === times.AFTER_6PM) {
+        return sessionTime.hour() >= 18
+      }
+      return sessionTime.hour() < 18
     }
   },
+
   computed: {
     filteredMovies () {
       return this.movies
