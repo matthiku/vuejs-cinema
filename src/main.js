@@ -16,8 +16,7 @@ moment.tz.setDefault("UTZ")
 Object.defineProperty(Vue.prototype, '$moment', { get() { return this.$root.moment }})
 
 // import the event listeners
-import { checkFilter } from './util/bus';
-import { setDay } from './util/bus';
+import { checkFilter, setDay } from './util/bus';
 // add a global event bus to the VUE project
 const bus = new Vue()
 Object.defineProperty(Vue.prototype, '$bus', { get () { return this.$root.bus }})

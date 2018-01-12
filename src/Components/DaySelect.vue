@@ -6,7 +6,12 @@
           v-for="(day, index) in days" :key="index"
           @click="selectDay(day)"
         >
-        {{ formatDay(day) }}</li>
+        {{ formatDay(day) }}
+      </li>
+      <li class="day-selector">
+        <span :class="{dec: selectedIndex > 0}" @click="changeDay(-1)"></span>
+        <span :class="{inc: selectedIndex < 6}" @click="changeDay(1)"></span>
+      </li>
     </ul>
   </div>
 </template>
@@ -23,6 +28,13 @@ export default {
     }
   },
 
+  computed: {
+    selectedIndex () {
+      let found = this.days.find(day => this.selected.isSame(day, 'd'))
+      return this.days.indexOf(found)
+    }
+  },
+
   methods: {
     isActive (day) {
       return day.isSame(this.selected, 'd')
@@ -33,6 +45,13 @@ export default {
     },
     selectDay (day) {
       this.$bus.$emit('set-day', day)
+    },
+    changeDay (change) {
+      let newDay = this.selected.clone().add(change, 'days')
+      // make sure we remain within the list of predefined days
+      if (this.days.find(day => newDay.isSame(day, 'd'))) {
+        this.selectDay(newDay)
+      }
     }
   }
 }
